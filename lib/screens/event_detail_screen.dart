@@ -148,21 +148,31 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Total Amount',
-                            style: Theme.of(context).textTheme.bodySmall,
+                          Expanded(
+                            child: Text(
+                              'Total Amount',
+                              style: Theme.of(context).textTheme.bodySmall,
+                              softWrap: true,
+                            ),
                           ),
-                          Text(
-                            CurrencyUtils.formatAmount(
-                                event.totalAmount, event.currencyCode),
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
+                          const SizedBox(width: 12),
+                          Flexible(
+                            child: Text(
+                              CurrencyUtils.formatAmount(
+                                  event.totalAmount, event.currencyCode),
+                              textAlign: TextAlign.end,
+                              softWrap: true,
+                              overflow: TextOverflow.visible,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                            ),
                           ),
                         ],
                       ),
