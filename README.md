@@ -1,30 +1,278 @@
-# splitdabill
+# SplitDaBill 💰
 
-A new Flutter project.
+A powerful Flutter mobile application designed to simplify bill splitting among groups of friends, roommates, or colleagues. SplitDaBill uses advanced OCR technology to automatically extract bill items and amounts, making it effortless to split expenses and track settlements.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
+## 🌟 Features
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Core Functionality
 
-## Assets
+- **Event Management**: Create and manage multiple events to organize bills and expenses
+- **Bill Splitting**: Split bills among multiple people with flexible payment options
+- **Smart OCR Integration**: Automatically extract items and amounts from receipt photos using Google ML Kit Text Recognition
+- **People Management**: Add and manage participants in your events
+- **Settlement Tracking**: Get automatic calculations for who owes whom and simplified settlement suggestions
+- **Debt Simplification**: Intelligent algorithm that minimizes the number of transactions needed to settle debts
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
+### Data Management
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+- **Local Database Storage**: All data is stored locally using Hive for fast, offline access
+- **Excel Export**: Export bills and settlement details to Excel for record-keeping
+- **Transaction History**: Keep detailed records of all transactions and payments
+- **Persistent Storage**: No internet required; all data persists locally on your device
 
-## Localization
+### User Experience
 
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
+- **Intuitive Interface**: Clean, user-friendly Material Design UI
+- **Multi-language Support**: Localized in multiple languages for accessibility
+- **Receipt Scanning**: Capture and process receipts with your device camera
+- **Real-time Updates**: Instant recalculation of splits and settlements
+- **Multiple Export Formats**: Save and share settlement reports in Excel format
 
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+---
+
+## 🛠️ Tech Stack
+
+### Frontend Framework
+
+- **Flutter 3.x** - Cross-platform mobile app framework (supports iOS, Android, Web, Windows, macOS, Linux)
+- **Dart 3.4.1+** - Modern programming language with null safety
+
+### State Management
+
+- **Provider 6.1.5+** - Efficient state management and dependency injection
+
+### Database & Storage
+
+- **Hive 2.2.3** - Fast, local NoSQL database
+- **Hive Flutter 1.1.0** - Flutter integration for Hive
+- **Path Provider 2.1.0** - Access file system paths
+- **Permission Handler 11.3.1** - Manage app permissions
+
+### ML & OCR
+
+- **Google ML Kit Text Recognition 0.6.0** - Advanced OCR for receipt scanning
+
+### Export & File Handling
+
+- **Excel 2.1.0** - Generate and export Excel spreadsheets
+- **Open FileX 4.5.0** - Open generated files with native apps
+- **Image Picker 1.0.0** - Select images from device gallery or camera
+
+### Utilities
+
+- **Intl 0.19.0** - Internationalization and localization
+- **UUID 4.0.0** - Generate unique identifiers
+- **Flutter Localizations** - Built-in localization support
+
+### Development Tools
+
+- **Hive Generator 2.0.0** - Code generation for Hive models
+- **Build Runner 2.4.0** - Dart code generation
+- **Flutter Lints 3.0.0** - Code quality and style guidelines
+
+---
+
+## 📋 Prerequisites
+
+- Flutter SDK: >= 3.4.1 < 4.0.0
+- Dart SDK: >= 3.4.1 < 4.0.0
+- Android SDK (for Android development)
+- Xcode (for iOS development)
+- A mobile device or emulator
+
+---
+
+## 🚀 Getting Started
+
+### Installation
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone <repository-url>
+   cd splitdabill
+   ```
+
+2. **Install Dependencies**
+
+   ```bash
+   flutter pub get
+   ```
+
+3. **Generate Code (for Hive models)**
+
+   ```bash
+   flutter pub run build_runner build
+   ```
+
+4. **Run the App**
+   ```bash
+   flutter run
+   ```
+
+### Building for Production
+
+**Android:**
+
+```bash
+flutter build apk
+# or for app bundle
+flutter build appbundle
+```
+
+**iOS:**
+
+```bash
+flutter build ios
+```
+
+**Web:**
+
+```bash
+flutter build web
+```
+
+---
+
+## 📱 Project Structure
+
+```
+lib/
+├── main.dart                 # App entry point
+├── models/                   # Data models
+│   ├── bill.dart            # Bill model
+│   ├── event.dart           # Event model
+│   ├── person.dart          # Person model
+│   ├── split_entry.dart     # Split entry model
+│   └── transaction.dart     # Transaction model
+├── screens/                  # UI screens
+│   ├── home_screen.dart
+│   ├── create_event_screen.dart
+│   ├── event_detail_screen.dart
+│   ├── create_bill_screen.dart
+│   ├── split_bill_screen.dart
+│   ├── settlement_screen.dart
+│   └── add_people_screen.dart
+├── services/                 # Business logic
+│   ├── database_service.dart
+│   ├── ocr_service.dart
+│   ├── bill_calculation_service.dart
+│   ├── debt_simplification_service.dart
+│   ├── excel_export_service.dart
+│   └── hive_setup_service.dart
+├── providers/                # State management
+│   └── data_providers.dart
+├── widgets/                  # Reusable widgets
+├── theme/                    # App theme & styling
+└── utils/                    # Utility functions
+```
+
+---
+
+## 🔧 Key Services
+
+### OCR Service
+
+Leverages Google ML Kit to automatically extract text and item information from receipt images, making bill entry quick and accurate.
+
+### Bill Calculation Service
+
+Handles complex calculations for splitting bills among multiple people with various payment methods.
+
+### Debt Simplification Service
+
+Uses an intelligent algorithm to minimize the number of transactions needed to settle all debts among group members.
+
+### Excel Export Service
+
+Generates professional Excel reports with settlement details, transaction history, and payment summaries.
+
+### Database Service
+
+Manages all local data operations with Hive, ensuring fast and reliable data persistence.
+
+---
+
+## 📝 Usage Examples
+
+### Creating an Event
+
+1. Open the app and tap "Create Event"
+2. Enter event name and select participants
+3. Start adding bills to the event
+
+### Adding a Bill with OCR
+
+1. Tap "Add Bill" in an event
+2. Use "Scan Receipt" to capture a receipt
+3. Review and adjust extracted items
+4. Select how to split the bill
+5. Confirm and save
+
+### Viewing Settlements
+
+1. Go to "Settlement" tab in an event
+2. View who owes whom
+3. Tap "Settle" to mark payments as complete
+4. Export settlement report to Excel if needed
+
+---
+
+## 🌍 Localization
+
+The app supports multiple languages. Language files are located in `lib/src/localization/`. To add a new language:
+
+1. Create a new `.arb` file in the localization directory
+2. Copy strings from the base language file
+3. Translate the strings
+4. Run `flutter pub get` to generate localized strings
+
+---
+
+## 📦 Dependencies Overview
+
+| Package                       | Version | Purpose              |
+| ----------------------------- | ------- | -------------------- |
+| provider                      | 6.1.5+  | State management     |
+| hive                          | 2.2.3   | Local database       |
+| google_mlkit_text_recognition | 0.6.0   | OCR functionality    |
+| excel                         | 2.1.0   | Excel export         |
+| image_picker                  | 1.0.0   | Photo capture        |
+| intl                          | 0.19.0  | Internationalization |
+| uuid                          | 4.0.0   | Unique IDs           |
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## 👥 Contributing
+
+Contributions are welcome! Please feel free to submit issues and pull requests.
+
+---
+
+## 📞 Support
+
+For issues, questions, or suggestions, please open an issue in the repository or contact the development team.
+
+---
+
+## 🎯 Future Enhancements
+
+- Cloud sync functionality
+- Receipt history and storage
+- Advanced reporting and analytics
+- Group settings and preferences
+- Payment gateway integration
+- Recurring bills
+- User authentication and multi-device sync
+
+---
+
+**Happy Bill Splitting! 🎉**
