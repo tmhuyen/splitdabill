@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/index.dart';
 import '../services/index.dart';
+import '../theme/app_colors.dart';
 import '../utils/currency_utils.dart';
 import 'edit_bill_screen.dart';
 
@@ -284,10 +285,10 @@ class _SplitBillScreenState extends State<SplitBillScreen> {
                             style: TextStyle(
                               color: overflow ||
                                       allEdited && remaining.abs() > 0.01
-                                  ? Colors.red
+                                  ? AppColors.error
                                   : locked
-                                      ? Colors.green
-                                      : Colors.orange,
+                                      ? AppColors.success
+                                      : AppColors.warning,
                             ),
                           ),
                         ],
@@ -297,7 +298,7 @@ class _SplitBillScreenState extends State<SplitBillScreen> {
                           padding: EdgeInsets.only(top: 8),
                           child: Text(
                             'Split total cannot exceed the bill total.',
-                            style: TextStyle(color: Colors.redAccent),
+                            style: TextStyle(color: AppColors.error),
                           ),
                         )
                       else if (allEdited && remaining.abs() > 0.01)
@@ -305,7 +306,7 @@ class _SplitBillScreenState extends State<SplitBillScreen> {
                           padding: EdgeInsets.only(top: 8),
                           child: Text(
                             'All participants are edited. Total still does not match the bill.',
-                            style: TextStyle(color: Colors.redAccent),
+                            style: TextStyle(color: AppColors.error),
                           ),
                         )
                       else if (locked)
@@ -313,7 +314,7 @@ class _SplitBillScreenState extends State<SplitBillScreen> {
                           padding: EdgeInsets.only(top: 8),
                           child: Text(
                             'Bill is fully allocated. Auto-adjustment is locked until you change a value.',
-                            style: TextStyle(color: Colors.green),
+                            style: TextStyle(color: AppColors.success),
                           ),
                         ),
                     ],

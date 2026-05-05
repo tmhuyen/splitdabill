@@ -6,11 +6,17 @@ import 'package:flutter/foundation.dart';
 /// Useful for debugging and displaying app info to users.
 class VersionInfoService {
   // App version from pubspec.yaml
-  static const String APP_VERSION = '1.0.0';
-  static const int BUILD_NUMBER = 1;
+  static const String APP_VERSION = '1.1.0';
+  static const int BUILD_NUMBER = 2;
 
   // Changelog for version tracking
   static const Map<String, String> CHANGELOG = {
+    '1.1.0': '''
+- Accessibility contrast improvements
+- Centralized semantic color system
+- Responsive layouts for large text scaling
+- Dark mode-ready theme foundation
+    ''',
     '1.0.0': '''
 - Initial release
 - Bill splitting with OCR

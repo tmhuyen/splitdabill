@@ -25,6 +25,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'SplitDaBill',
         theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.system,
         home: const HomeScreen(),
         debugShowCheckedModeBanner: false,
       ),

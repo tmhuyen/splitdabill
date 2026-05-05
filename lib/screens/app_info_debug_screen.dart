@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/data_migration_service.dart';
 import '../services/hive_setup_service.dart';
 import '../services/version_info_service.dart';
+import '../theme/app_colors.dart';
 
 /// Example Debug & Info Screen
 ///
@@ -144,31 +145,22 @@ class _AppInfoDebugScreenState extends State<AppInfoDebugScreen> {
             _buildSection(
               title: 'Actions',
               children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: _validateDataIntegrity,
-                    icon: const Icon(Icons.check_circle),
-                    label: const Text('Validate Data Integrity'),
-                  ),
+                _buildActionButton(
+                  onPressed: _validateDataIntegrity,
+                  icon: Icons.check_circle,
+                  label: 'Validate Data Integrity',
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: _showAppInfo,
-                    icon: const Icon(Icons.info),
-                    label: const Text('Show App Info'),
-                  ),
+                _buildActionButton(
+                  onPressed: _showAppInfo,
+                  icon: Icons.info,
+                  label: 'Show App Info',
                 ),
                 const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    onPressed: _refreshStatus,
-                    icon: const Icon(Icons.refresh),
-                    label: const Text('Refresh Status'),
-                  ),
+                _buildActionButton(
+                  onPressed: _refreshStatus,
+                  icon: Icons.refresh,
+                  label: 'Refresh Status',
                 ),
               ],
             ),
@@ -178,9 +170,9 @@ class _AppInfoDebugScreenState extends State<AppInfoDebugScreen> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color: AppColors.infoContainer,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.blue),
+                border: Border.all(color: AppColors.info, width: 1.2),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -194,13 +186,20 @@ class _AppInfoDebugScreenState extends State<AppInfoDebugScreen> {
                     'This screen shows app version, data migration status, '
                     'and storage information. Use "Validate Data Integrity" '
                     'to check for any data consistency issues.',
-                    style: TextStyle(fontSize: 12),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: AppColors.textPrimary,
+                    ),
                   ),
                   const SizedBox(height: 8),
                   const Text(
                     'For more information, see MIGRATION_GUIDE.dart in the '
                     'services directory.',
-                    style: TextStyle(fontSize: 11, fontStyle: FontStyle.italic),
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontStyle: FontStyle.italic,
+                      color: AppColors.textSecondary,
+                    ),
                   ),
                 ],
               ),
@@ -235,13 +234,16 @@ class _AppInfoDebugScreenState extends State<AppInfoDebugScreen> {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
             style: const TextStyle(fontWeight: FontWeight.w500),
+            softWrap: true,
+            overflow: TextOverflow.visible,
           ),
+          const SizedBox(height: 4),
           if (isLoading)
             const SizedBox(
               width: 16,
@@ -251,12 +253,43 @@ class _AppInfoDebugScreenState extends State<AppInfoDebugScreen> {
           else
             Text(
               value,
+              softWrap: true,
+              overflow: TextOverflow.visible,
               style: TextStyle(
-                color: Colors.grey[600],
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontFamily: 'monospace',
               ),
             ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+    required String label,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                label,
+                textAlign: TextAlign.center,
+                softWrap: true,
+                overflow: TextOverflow.visible,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

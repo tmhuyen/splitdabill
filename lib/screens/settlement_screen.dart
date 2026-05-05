@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import '../models/index.dart';
 import '../services/index.dart';
+import '../theme/app_colors.dart';
 import '../utils/currency_utils.dart';
 
 class SettlementScreen extends StatefulWidget {
@@ -90,14 +91,14 @@ class _SettlementScreenState extends State<SettlementScreen> {
                         Icon(
                           Icons.check_circle_outline,
                           size: 80,
-                          color: Colors.green[300],
+                          color: AppColors.success,
                         ),
                         const SizedBox(height: 16),
                         Text(
                           'All settled!',
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: Colors.green,
+                                    color: AppColors.success,
                                   ),
                         ),
                       ],
@@ -144,7 +145,9 @@ class _SettlementScreenState extends State<SettlementScreen> {
                                             .textTheme
                                             .bodyLarge
                                             ?.copyWith(
-                                              color: const Color(0xFFFF9999),
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
                                             ),
                                       ),
                                     ],

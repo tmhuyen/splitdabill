@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/index.dart';
 import '../providers/data_providers.dart';
+import '../theme/app_colors.dart';
 import '../utils/currency_utils.dart';
 import 'event_detail_screen.dart';
 import 'create_event_screen.dart';
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Icon(
                               Icons.event_note_outlined,
                               size: 80,
-                              color: Colors.grey[300],
+                              color: Theme.of(context).colorScheme.outline,
                             ),
                             const SizedBox(height: 16),
                             Text(
@@ -86,7 +87,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                    color: Colors.grey,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
                                   ),
                             ),
                           ],
@@ -115,7 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _openCreateEvent,
-        backgroundColor: const Color(0xFFFF9999),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         child: const Icon(Icons.add),
       ),
     );
@@ -167,14 +171,15 @@ class EventCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFCCCC),
+                      color: AppColors.primaryContainer,
                       borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: AppColors.primary, width: 1),
                     ),
                     child: Text(
                       CurrencyUtils.formatAmount(
                           event.totalAmount, event.currencyCode),
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            color: const Color(0xFF4A4A4A),
+                            color: AppColors.textPrimary,
                           ),
                     ),
                   ),
@@ -191,7 +196,7 @@ class EventCard extends StatelessWidget {
                   Text(
                     'Updated ${_formatDate(event.updatedAt)}',
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: const Color(0xFF999999),
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                 ],

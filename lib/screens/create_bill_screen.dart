@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import '../models/index.dart';
 import '../services/index.dart';
+import '../theme/app_colors.dart';
 import '../utils/currency_utils.dart';
 import 'package:uuid/uuid.dart';
 
@@ -223,7 +224,7 @@ class _CreateBillScreenState extends State<CreateBillScreen> {
                 const SizedBox(height: 16),
                 const Text(
                   'Add people to this event before creating a bill.',
-                  style: TextStyle(color: Colors.redAccent),
+                  style: TextStyle(color: AppColors.error),
                 ),
               ],
             ],

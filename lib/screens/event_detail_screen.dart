@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../models/index.dart';
 import '../providers/data_providers.dart';
 import '../services/index.dart';
+import '../theme/app_colors.dart';
 import '../utils/currency_utils.dart';
 import 'add_people_screen.dart';
 import 'create_bill_screen.dart';
@@ -160,7 +161,7 @@ class _EventDetailScreenState extends State<EventDetailScreen> {
                                 .textTheme
                                 .displayMedium
                                 ?.copyWith(
-                                  color: const Color(0xFFFF9999),
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                           ),
                         ],
@@ -366,7 +367,7 @@ class BillTile extends StatelessWidget {
                 tooltip: 'Delete bill',
                 onPressed: onDelete,
                 icon: const Icon(Icons.delete_outline),
-                color: Colors.redAccent,
+                color: AppColors.error,
               ),
             ],
           ),
