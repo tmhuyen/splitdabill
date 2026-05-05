@@ -32,6 +32,16 @@ A powerful Flutter mobile application designed to simplify bill splitting among 
 
 ---
 
+## 🎬 Demo Video
+
+Watch SplitDaBill in action! Click the video below to see the app features and workflow:
+
+[![SplitDaBill Demo](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](Splitdabill_demo.mp4)
+
+[📹 Watch Full Demo Video](Splitdabill_demo.mp4)
+
+---
+
 ## 🛠️ Tech Stack
 
 ### Frontend Framework
