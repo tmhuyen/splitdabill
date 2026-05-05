@@ -146,7 +146,158 @@ flutter build web
 
 ---
 
-## 📱 Project Structure
+## � Data Migration & Versioning
+
+### Overview
+
+SplitDaBill uses **Hive** for local data storage. Your data persists across app updates automatically, ensuring you never lose your bills, events, or settlements. This section explains how we manage data compatibility across versions.
+
+### How Data Persists
+
+- **Automatic Persistence**: Hive stores data in local files that survive app updates
+- **No Data Loss**: Data is preserved during app updates unless the app is completely uninstalled
+- **Platform Coverage**: Works on Android, iOS, Web, and Desktop platforms
+
+### Recommended Update Strategy
+
+#### ✅ Keep Hive Boxes Open (Don't Delete on Startup)
+
+Ensure the database initialization preserves existing data:
+
+```dart
+// ✅ CORRECT: Initialize boxes if they don't exist
+if (!Hive.isBoxOpen('events')) {
+  await Hive.openBox<Event>('events');
+}
+
+// ❌ WRONG: Never delete on every startup
+// await Hive.deleteBoxFromDisk('events');
+```
+
+#### ✅ Add Version Tracking to Detect Schema Changes
+
+Implement versioning to handle data model updates:
+
+```dart
+// In your database service
+const int CURRENT_DATA_VERSION = 2;
+
+Future<void> initializeDatabase() async {
+  final versionBox = await Hive.openBox('app_metadata');
+  final currentVersion = versionBox.get('data_version') ?? 0;
+
+  if (currentVersion < CURRENT_DATA_VERSION) {
+    await migrateData(currentVersion, CURRENT_DATA_VERSION);
+    await versionBox.put('data_version', CURRENT_DATA_VERSION);
+  }
+}
+```
+
+#### ✅ Implement Migration Functions for Schema Updates
+
+Create migration functions when data models change:
+
+```dart
+Future<void> migrateData(int fromVersion, int toVersion) async {
+  if (fromVersion < 2) {
+    await migrateToV2();
+  }
+  if (fromVersion < 3) {
+    await migrateToV3();
+  }
+}
+
+Future<void> migrateToV2() async {
+  // Example: Add new field to existing records
+  final eventsBox = await Hive.openBox<Event>('events');
+  for (var event in eventsBox.values) {
+    // Update event with new fields or format
+    event.updatedAt = DateTime.now();
+    await event.save();
+  }
+}
+```
+
+#### ✅ Test Updates Locally Before Release
+
+- Always test the app on a device with existing data
+- Verify all data is readable after model changes
+- Run migrations in a staging environment first
+- Test both fresh installs and upgrades
+
+#### ✅ Document Breaking Changes in Release Notes
+
+For each release, document:
+
+- New features and improvements
+- Any data schema changes
+- Migration instructions if needed
+- Minimum supported app version for updates
+
+Example release notes:
+
+```
+v1.1.0
+------
+✨ New Features:
+  - Added recurring bills support
+  - Improved OCR accuracy
+
+⚠️ Breaking Changes:
+  - Bill model structure updated (auto-migrated)
+  - Minimum app version: 1.0.0+1
+
+🔄 Data Migration:
+  - All existing bills auto-migrated to new format
+  - No user action required
+```
+
+### Platform-Specific Behavior
+
+**Android:**
+
+- Data stored in `/data/data/<package>/files/`
+- Persists across app updates
+- Lost only if user explicitly clears app data or uninstalls
+
+**iOS:**
+
+- Data stored in app sandbox
+- Persists across App Store updates
+- Lost only if user deletes and reinstalls the app
+
+### Backup & Export
+
+Users should consider exporting their data periodically:
+
+1. Go to an event and tap **"Export to Excel"**
+2. Save the file to device storage
+3. Use these backups before major app updates
+
+### Data Integrity Checks
+
+Add validation on app startup:
+
+```dart
+Future<void> validateDataIntegrity() async {
+  try {
+    final eventsBox = await Hive.openBox<Event>('events');
+    for (var event in eventsBox.values) {
+      // Validate required fields exist
+      if (event.name == null || event.participants == null) {
+        // Log error or attempt repair
+        logger.error('Invalid event detected: ${event.key}');
+      }
+    }
+  } catch (e) {
+    logger.error('Data integrity check failed: $e');
+  }
+}
+```
+
+---
+
+## �📱 Project Structure
 
 ```
 lib/
