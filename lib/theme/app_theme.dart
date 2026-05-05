@@ -188,9 +188,11 @@ class AppTheme {
         selectionHandleColor: colorScheme.primary,
       ),
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: textPrimary,
+        backgroundColor: surface,
         contentTextStyle: TextStyle(color: colorScheme.onSurface),
-        actionTextColor: colorScheme.inversePrimary,
+        actionTextColor: colorScheme.primary,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       dialogTheme: DialogTheme(
         backgroundColor: surface,
